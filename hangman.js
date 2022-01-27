@@ -15,21 +15,25 @@ var Hangman = (function () {
         this.elId       = elId;
         // Possible words
         this.words      = [
-            'PROGRAMMER', 'BRAINSTORM', 'CREATIVE', 'LOLLIPOP',
-            'CULTURE', 'RAZORSHARP', 'SCREWDRIVER', 'TYPEWRITER'
+            'HARRY POTTER' ,'SOLAR ECLIPSE', 'PHOTOGRAPHER', 'THE LION KING', 'IDENTITY ACCESS MANAGEMNET',
         ];
     }
+    let wordIndex = 0;
 
     /**
      * Resets the hangman game
      */
     Hangman.prototype.reset = function () {
         // Variables
+        console.log('index : ' + wordIndex);
         this.STOPPED        = false;
         this.MISTAKES       = 0;
         this.GUESSES        = [];
         // Select a random word from the list
-        this.WORD           = this.words[Math.floor(Math.random() * this.words.length)];
+        if (wordIndex === this.words.length) {
+            wordIndex == 0;
+        }
+        this.WORD = this.words[wordIndex++];
         // DOM Elements
         this.hideElementByClass('h');
         this.showElementByIdWithContent(this.elId + "_guessbox", null);
@@ -56,18 +60,7 @@ var Hangman = (function () {
         this.showElementByIdWithContent(this.elId + "_word", this.getGuessedfWord());
         this.showElementByIdWithContent(this.elId + "_guesses", this.GUESSES.join(''));
 
-        // Check if our word does not contain the guessed letter
-        if (this.WORD.indexOf(letter) < 0) {
-            // Incorrect guess, increase our mistakes by one
-            this.MISTAKES++;
-            // Show next part of hangman character
-            this.showElementByIdWithContent(this.elId + "_" + this.MISTAKES, null);
-            // Check if its Game Over
-            if (this.MISTAKES === 6) {
-                this.showElementByIdWithContent(this.elId + "_end", "GAME OVER!<br/>The word was: " + this.WORD);
-                this.STOPPED = true;
-            }
-        } else if (this.WORD.indexOf(this.getGuessedfWord()) !== -1) {
+        if (this.WORD.indexOf(this.getGuessedfWord()) !== -1) {
             // Victory condition
             this.showElementByIdWithContent(this.elId + "_end", "You made it!<br/>The word was: " + this.WORD);
             this.STOPPED = true;
