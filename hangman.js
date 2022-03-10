@@ -15,7 +15,9 @@ var Hangman = (function () {
         this.elId       = elId;
         // Possible words
         this.words      = [
-            'HARRY POTTER' ,'SOLAR ECLIPSE', 'PHOTOGRAPHER', 'THE LION KING', 'IDENTITY ACCESS MANAGEMNET',
+            'APPLE',
+            
+            
         ];
     }
     let wordIndex = 0;
